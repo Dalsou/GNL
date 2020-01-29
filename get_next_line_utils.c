@@ -6,15 +6,15 @@
 /*   By: afoulqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 10:22:35 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/01/24 16:03:44 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/01/29 12:17:06 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int		ft_strlen(const char *s)
+int			ft_strlen(const char *s)
 {
-	size_t len;
+	size_t			len;
 
 	len = 0;
 	while (s[len] != '\0')
@@ -22,10 +22,10 @@ int		ft_strlen(const char *s)
 	return (len);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char		*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*new;
-	size_t	i;
+	char			*new;
+	size_t			i;
 
 	if (!s)
 		return (NULL);
@@ -42,11 +42,11 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (new);
 }
 
-char	*ft_strdup(const char *s1)
+char		*ft_strdup(const char *s1)
 {
-	char*new;
-	int i;
-	int size;
+	char			*new;
+	int				i;
+	int				size;
 
 	size = 0;
 	size = ft_strlen((char *)s1);
