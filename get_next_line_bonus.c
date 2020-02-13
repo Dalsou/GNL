@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afoulqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int		free_and_return(char **str, int ret)
 {
-	if (ret == -1 || ret == 0)
+	if ((*str) && (ret == -1 || ret == 0))
 	{
 		free(*str);
 		(*str) = NULL;
@@ -73,24 +73,24 @@ int		check_error_and_str(char **str, char **line, int fd)
 
 int		get_next_line(int fd, char **line)
 {
-	static char	*str;
-	char		buff[BUFFER_SIZE + 1];
-	int			ret;
+	static t_str	str[100];
+	char			buff[BUFFER_SIZE + 1];
+	int				ret;
 
-	ret = check_error_and_str(&str, line, fd);
+	ret = check_error_and_str(&str[fd].s, line, fd);
 	if (ret == 0)
 	{
 		while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
 		{
 			buff[ret] = '\0';
-			if (!(str = ft_strjoin(str, buff)))
-				return (free_and_return(&str, -1));
-			ret = find_line(&str, line);
+			if (!(str[fd].s = ft_strjoin(str[fd].s, buff)))
+				return (free_and_return(&str[fd].s, -1));
+			ret = find_line(&str[fd].s, line);
 			if (ret == 1 || ret == -1)
-				return (free_and_return(&str, ret));
+				return (free_and_return(&str[fd].s, ret));
 		}
-		if (!((*line) = ft_substr(str, 0, ft_strlen(str))))
-			return (free_and_return(&str, -1));
+		if (!((*line) = ft_substr(str[fd].s, 0, ft_strlen(str[fd].s))))
+			return (free_and_return(&str[fd].s, -1));
 	}
-	return (free_and_return(&str, ret));
+	return (free_and_return(&str[fd].s, ret));
 }
